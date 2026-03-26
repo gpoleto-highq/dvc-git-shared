@@ -1,0 +1,27 @@
+services:
+  dvc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dvc
+    volumes:
+      # DVC workspace — your actual project files
+      - dvc-workspace:/workspace
+      # Data store — git submodule used as the DVC remote
+      - ./data-store:/dvc-remote
+      # SSH keys for git authentication (mount your ~/.ssh/id_rsa or equivalent)
+      - ${SSH_KEY_PATH:-~/.ssh}:/root/.ssh:ro
+    environment:
+      # URL of the main project git repo (for workspace auto-pull)
+      WORKSPACE_REPO: ${WORKSPACE_REPO:-}
+      # Branch to track
+      GIT_BRANCH: ${GIT_BRANCH:-main}
+      # How often to sync (seconds). Default: every 5 minutes
+      SYNC_INTERVAL: ${SYNC_INTERVAL:-300}
+      # Git author for any auto-commits in data-store
+      GIT_AUTHOR_NAME: ${GIT_AUTHOR_NAME:-DVC Sync Bot}
+      GIT_AUTHOR_EMAIL: ${GIT_AUTHOR_EMAIL:-dvc-sync@localhost}
+    restart: unless-stopped
+
+volumes:
+  dvc-workspace:

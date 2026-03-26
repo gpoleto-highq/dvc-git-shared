@@ -1,0 +1,4 @@
+[submodule "data-store"]
+	path = data-store
+	url = git@github.com:gpoleto-highq/data-store-dvc-git-shared.git
+	branch = main
