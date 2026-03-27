@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-client \
     cron \
     curl \
+    jq \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir dvc

@@ -18,9 +18,12 @@ services:
       GIT_BRANCH: ${GIT_BRANCH:-main}
       # How often to sync (seconds). Default: every 5 minutes
       SYNC_INTERVAL: ${SYNC_INTERVAL:-300}
-      # Git author for any auto-commits in data-store
+      # Git author for auto-commits
       GIT_AUTHOR_NAME: ${GIT_AUTHOR_NAME:-DVC Sync Bot}
       GIT_AUTHOR_EMAIL: ${GIT_AUTHOR_EMAIL:-dvc-sync@localhost}
+      # GitHub personal access token — used to open Pull Requests automatically
+      # Requires: repo scope (or contents + pull_requests for fine-grained tokens)
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
     restart: unless-stopped
 
 volumes:
